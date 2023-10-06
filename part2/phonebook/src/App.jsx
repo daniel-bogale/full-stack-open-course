@@ -6,9 +6,18 @@ const App = () => {
 
   const handleAddNumber = (e) => {
     e.preventDefault();
-    const newPerson = { name: newName };
-    setPersons(persons.concat(newPerson));
-    setNewName("");
+
+    const existingPersonWithTheSameName = persons.find(
+      (person) => person.name === newName
+    );
+    console.log(existingPersonWithTheSameName);
+    if (existingPersonWithTheSameName) {
+      alert(`${newName} is already added to phonebook`);
+    } else {
+      const newPerson = { name: newName };
+      setPersons(persons.concat(newPerson));
+      setNewName("");
+    }
   };
   const onChangeHandler = (e) => {
     setNewName(e.target.value);
