@@ -25,7 +25,13 @@ const App = () => {
       alert(`${newName} is already added to phonebook`);
     } else {
       const newPerson = { name: newName, number: newNumber };
-      setPersons(persons.concat(newPerson));
+      axios
+        .post("http://localhost:3001/persons", newPerson)
+        .then((response) => {
+          setPersons(response.data);
+          setNewName("");
+          setNewNumber("");
+        });
     }
   };
 
@@ -49,7 +55,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    const promise = axios.get(" http://localhost:3001/persons");
+    const promise = axios.get("http://localhost:3001/persons");
     promise.then((res) => {
       console.log(res);
       if (res.statusText === "OK") {
@@ -67,6 +73,8 @@ const App = () => {
       <h3>Add new contact</h3>
 
       <PersonForm
+        nameInputValue={newName}
+        numberInputValue={newNumber}
         onNameChangeHandler={onNameChangeHandler}
         onNumberChangeHandler={onNumberChangeHandler}
         handleAddNumber={handleAddNumber}
