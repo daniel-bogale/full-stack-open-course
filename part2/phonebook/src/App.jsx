@@ -33,18 +33,24 @@ const App = () => {
           `${newPerson.name} is already added to phonebook, replace the old number with a new one?`
         )
       ) {
+        phonebookServices
+          .update(existingPersonWithTheSameName.id, newPerson)
+          .then((res) => {
+            setSuccessMessage(`${newPerson.name} is Modified`);
+            setTimeout(() => {
+              setSuccessMessage(null);
+            }, 5000);
+          })
+          .catch((err) => {
+            setErrorMessage(
+              `Information of ${newPerson.name} has already been removed from server`
+            );
+            setTimeout(() => {
+              setErrorMessage(null);
+            }, 5000);
+          });
         setNewName("");
         setNewNumber("");
-        phonebookServices.update(existingPersonWithTheSameName.id, newPerson);
-        setSuccessMessage(`${newPerson.name} is Modified`);
-        setTimeout(() => {
-          setSuccessMessage(null);
-        }, 5000).catch((err) => {
-          setErrorMessage(err.message);
-          setTimeout(() => {
-            setErrorMessage(null);
-          }, 5000);
-        });
       }
     } else {
       phonebookServices
