@@ -14,4 +14,8 @@ const update = (id, newPhoneBook) => {
   return axios.put(`${baseUrl}/${id}`, newPhoneBook);
 };
 
-export default { getAll, create, update };
+const deletePhoneBook = (id) => {
+    return axios.delete(`${baseUrl}/${id}`)
+}
+
+export default { getAll, create, update, deletePhoneBook };

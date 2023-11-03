@@ -1,15 +1,20 @@
 const Persons = ({ isFiltering, persons, filteredPersons }) => {
-  return isFiltering
-    ? filteredPersons.map((person) => (
-        <p key={person.name}>
-          {person.name} {person.number}
-        </p>
-      ))
-    : persons.map((person) => (
-        <p key={person.name}>
-          {person.name} {person.number}
-        </p>
-      ));
+  const personTobeRender = isFiltering ? filteredPersons : persons;
+
+  return personTobeRender.map((person) => (
+    <div>
+      <span key={person.id}>
+        {person.name} {person.number}
+      </span>
+      <button
+        onClick={() => {
+          console.log(person.id);
+        }}
+      >
+        delete
+      </button>
+    </div>
+  ));
 };
 
 export default Persons;
