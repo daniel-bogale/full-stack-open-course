@@ -1,5 +1,3 @@
-import phonebookServices from "../services/phonebook";
-
 const Persons = ({ isFiltering, persons, filteredPersons, handleDeletion }) => {
   const personTobeRender = isFiltering ? filteredPersons : persons;
 
