@@ -80,11 +80,11 @@ const App = () => {
 
   return (
     <div>
-      <h2>Phonebook</h2>
+      <h1>Phonebook</h1>
 
       <Filter onFilterChangeHandler={onFilterChangeHandler} />
 
-      <h3>Add new contact</h3>
+      <h2>Add new contact</h2>
 
       <PersonForm
         nameInputValue={newName}
