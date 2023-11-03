@@ -20,13 +20,22 @@ const App = () => {
   const handleAddNumber = (e) => {
     e.preventDefault();
 
+    const newPerson = { name: newName, number: newNumber };
+
     const existingPersonWithTheSameName = persons.find(
       (person) => person.name === newName
     );
     if (existingPersonWithTheSameName) {
-      alert(`${newName} is already added to phonebook`);
+      if (
+        window.confirm(
+          `${newPerson.name} is already added to phonebook, replace the old number with a new one?`
+        )
+      ) {
+        setNewName("");
+        setNewNumber("");
+        phonebookServices.update(existingPersonWithTheSameName.id, newPerson);
+      }
     } else {
-      const newPerson = { name: newName, number: newNumber };
       phonebookServices.create(newPerson).then((response) => {
         setPersons(persons.concat(response.data));
         setNewName("");
