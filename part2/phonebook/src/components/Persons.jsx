@@ -1,8 +1,17 @@
-const Persons = ({ isFiltering, persons, filteredPersons, handleDeletion }) => {
+const Persons = ({
+  isFiltering,
+  persons,
+  filteredPersons,
+  handleDeletion,
+  errorMessage,
+}) => {
   const personTobeRender = isFiltering ? filteredPersons : persons;
 
+  if (errorMessage) {
+    return <p className="error">{errorMessage}</p>;
+  }
   return personTobeRender.map((person) => (
-    <div key={person.id}>
+    <li key={person.id}>
       <span>
         {person.name} {person.number}
       </span>
@@ -13,7 +22,7 @@ const Persons = ({ isFiltering, persons, filteredPersons, handleDeletion }) => {
       >
         delete
       </button>
-    </div>
+    </li>
   ));
 };
 

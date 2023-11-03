@@ -16,6 +16,7 @@ const App = () => {
   const [filterBy, setFilterBy] = useState("");
   const [filteredPersons, setFilteredPersons] = useState([]);
   const [isFiltering, setIsFiltering] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleAddNumber = (e) => {
     e.preventDefault();
@@ -70,12 +71,20 @@ const App = () => {
   };
 
   useEffect(() => {
-    phonebookServices.getAll().then((res) => {
-      console.log(res);
-      if (res.statusText === "OK") {
-        setPersons(res.data);
-      }
-    });
+    phonebookServices
+      .getAll()
+      .then((res) => {
+        console.log(res);
+        if (res.statusText === "OK") {
+          setPersons(res.data);
+        }
+      })
+      .catch((err) => {
+        setErrorMessage(err.message);
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
+      });
   }, []);
 
   return (
@@ -101,6 +110,7 @@ const App = () => {
         persons={persons}
         filteredPersons={filteredPersons}
         handleDeletion={onDeletion}
+        errorMessage={errorMessage}
       />
     </div>
   );
