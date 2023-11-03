@@ -53,6 +53,12 @@ const App = () => {
       setIsFiltering(false);
     }
   };
+  const onDeletion = (person) => {
+    if (window.confirm(`Delete ${person.name}?`))
+      phonebookServices.deletePhoneBook(person.id).then((res) => {
+        setPersons((persons) => persons.filter((per) => per.id !== person.id));
+      });
+  };
 
   useEffect(() => {
     phonebookServices.getAll().then((res) => {
@@ -85,6 +91,7 @@ const App = () => {
         isFiltering={isFiltering}
         persons={persons}
         filteredPersons={filteredPersons}
+        handleDeletion={onDeletion}
       />
     </div>
   );

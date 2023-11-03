@@ -1,6 +1,6 @@
 import phonebookServices from "../services/phonebook";
 
-const Persons = ({ isFiltering, persons, filteredPersons }) => {
+const Persons = ({ isFiltering, persons, filteredPersons, handleDeletion }) => {
   const personTobeRender = isFiltering ? filteredPersons : persons;
 
   return personTobeRender.map((person) => (
@@ -10,7 +10,7 @@ const Persons = ({ isFiltering, persons, filteredPersons }) => {
       </span>
       <button
         onClick={() => {
-          phonebookServices.deletePhoneBook(person.id);
+          handleDeletion(person)
         }}
       >
         delete
