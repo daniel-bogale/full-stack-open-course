@@ -11,7 +11,7 @@ const PersonForm = ({
         name: <input onChange={onNameChangeHandler} value={nameInputValue} />
       </div>
       <div>
-        number:{" "}
+        number:
         <input onChange={onNumberChangeHandler} value={numberInputValue} />
       </div>
       <div>
