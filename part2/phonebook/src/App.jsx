@@ -17,6 +17,7 @@ const App = () => {
   const [filteredPersons, setFilteredPersons] = useState([]);
   const [isFiltering, setIsFiltering] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
   const handleAddNumber = (e) => {
     e.preventDefault();
@@ -35,13 +36,34 @@ const App = () => {
         setNewName("");
         setNewNumber("");
         phonebookServices.update(existingPersonWithTheSameName.id, newPerson);
+        setSuccessMessage(`${newPerson.name} is Modified`);
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 5000).catch((err) => {
+          setErrorMessage(err.message);
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 5000);
+        });
       }
     } else {
-      phonebookServices.create(newPerson).then((response) => {
-        setPersons(persons.concat(response.data));
-        setNewName("");
-        setNewNumber("");
-      });
+      phonebookServices
+        .create(newPerson)
+        .then((response) => {
+          setPersons(persons.concat(response.data));
+          setNewName("");
+          setNewNumber("");
+          setSuccessMessage(`${newPerson.name} is Added`);
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 5000);
+        })
+        .catch((err) => {
+          setErrorMessage(err.message);
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 5000);
+        });
     }
   };
 
@@ -65,9 +87,23 @@ const App = () => {
   };
   const onDeletion = (person) => {
     if (window.confirm(`Delete ${person.name}?`))
-      phonebookServices.deletePhoneBook(person.id).then((res) => {
-        setPersons((persons) => persons.filter((per) => per.id !== person.id));
-      });
+      phonebookServices
+        .deletePhoneBook(person.id)
+        .then((res) => {
+          setPersons((persons) =>
+            persons.filter((per) => per.id !== person.id)
+          );
+          setSuccessMessage(`${person.name} is deleted`);
+          setTimeout(() => {
+            setSuccessMessage(null);
+          }, 5000);
+        })
+        .catch((err) => {
+          setErrorMessage(err.message);
+          setTimeout(() => {
+            setErrorMessage(null);
+          }, 5000);
+        });
   };
 
   useEffect(() => {
@@ -90,7 +126,8 @@ const App = () => {
   return (
     <div>
       <h1>Phonebook</h1>
-
+      {successMessage && <p className="success">{successMessage}</p>}
+      {errorMessage && <p className="error">{errorMessage}</p>}
       <Filter onFilterChangeHandler={onFilterChangeHandler} />
 
       <h2>Add new contact</h2>
@@ -110,7 +147,6 @@ const App = () => {
         persons={persons}
         filteredPersons={filteredPersons}
         handleDeletion={onDeletion}
-        errorMessage={errorMessage}
       />
     </div>
   );

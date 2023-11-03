@@ -2,14 +2,10 @@ const Persons = ({
   isFiltering,
   persons,
   filteredPersons,
-  handleDeletion,
-  errorMessage,
+  handleDeletion
 }) => {
   const personTobeRender = isFiltering ? filteredPersons : persons;
 
-  if (errorMessage) {
-    return <p className="error">{errorMessage}</p>;
-  }
   return personTobeRender.map((person) => (
     <li key={person.id}>
       <span>
