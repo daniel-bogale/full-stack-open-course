@@ -1,8 +1,7 @@
 const Filter = ({ onFilterChangeHandler }) => {
   return (
     <div>
-      filter shown with
-      <input type="text" onChange={onFilterChangeHandler} />
+      filter shown with <input type="text" onChange={onFilterChangeHandler} />
     </div>
   );
 };

@@ -9,7 +9,7 @@ const Persons = ({
   return personTobeRender.map((person) => (
     <li key={person.id}>
       <span>
-        {person.name} {person.number}
+        {person.name} {person.number} {' '}
       </span>
       <button
         onClick={() => {
