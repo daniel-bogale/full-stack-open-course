@@ -1,7 +1,10 @@
 function App() {
   return (
     <>
-      <div>hello</div>
+      <div>
+        <span>Find Countries</span> <input type="text" />
+      </div>
+      {true && <p> Response</p>}
     </>
   );
 }
