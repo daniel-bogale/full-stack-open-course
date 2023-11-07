@@ -50,7 +50,7 @@ function App() {
 
         setSearchedCountry(country);
         weatherServices.getWeatherFromCityName(country.capital).then((res) => {
-          console.log(res);
+          setWeatherInfo(res.data);
         });
         return;
       });
@@ -75,8 +75,14 @@ function App() {
             ))}
           {searchedCountry && (
             <div>
-              <h1>{searchedCountry.commonName}</h1>
-              <p>official Name: {searchedCountry.officialName}</p>
+              <h1 style={{ marginBottom: "0" }}>
+                {searchedCountry.commonName}
+              </h1>
+              <p>Official Name: {searchedCountry.officialName}</p>
+              <br />
+              <p>Capital: {searchedCountry.capital}</p>
+
+              <p>Area: {searchedCountry.area}</p>
 
               <h2>languages:</h2>
               <ul>
@@ -87,6 +93,8 @@ function App() {
               <h1 style={{ fontSize: "10rem", margin: "0" }}>
                 {searchedCountry.flag}
               </h1>
+
+              <h1>Weather in {searchedCountry.capital}</h1>
             </div>
           )}
         </div>
