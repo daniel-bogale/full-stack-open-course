@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import countriesSerices from "./services/countries";
+import countriesServices from "./services/countries";
+import weatherServices from "./services/weather";
 
 function App() {
   const [allCountriesList, setAllCountriesList] = useState([]);
   const [filteredContriesList, setFilteredContriesList] = useState(null);
   const [isFetchingCountryNames, setIsFetchingCountryNames] = useState(true);
   const [searchedCountry, setSearchedCountry] = useState(null);
+  const [weatherInfo, setWeatherInfo] = useState(null);
 
   useEffect(() => {
-    countriesSerices.getAll().then((res) => {
+    countriesServices.getAll().then((res) => {
       const allCountriesNameList = res.data.map(
         (country) => country.name.common
       );
@@ -32,7 +34,7 @@ function App() {
 
     if (filteredContries.length === 1) {
       const countryName = filteredContries[0];
-      countriesSerices.getCountryDetatil(countryName).then((res) => {
+      countriesServices.getCountryDetatil(countryName).then((res) => {
         const countryData = res.data;
 
         const country = {
@@ -47,11 +49,14 @@ function App() {
         console.log(country);
 
         setSearchedCountry(country);
-
+        weatherServices.getWeatherFromCityName(country.capital).then((res) => {
+          console.log(res);
+        });
         return;
       });
     }
     setSearchedCountry(null);
+    setWeatherInfo(null);
   };
 
   return (
@@ -79,7 +84,9 @@ function App() {
                   <li key={lang}>{lang}</li>
                 ))}
               </ul>
-              <h1 style={{ fontSize: "10rem",  margin:"0"}}>{searchedCountry.flag}</h1>
+              <h1 style={{ fontSize: "10rem", margin: "0" }}>
+                {searchedCountry.flag}
+              </h1>
             </div>
           )}
         </div>
