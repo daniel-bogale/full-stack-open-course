@@ -3,7 +3,6 @@
 const baseUrl = "https://studies.cs.helsinki.fi/restcountries/api/all";
 
 const getAll = () => {
-  return fetch(baseUrl)
+  return fetch(baseUrl);
 };
-
 export default { getAll };
