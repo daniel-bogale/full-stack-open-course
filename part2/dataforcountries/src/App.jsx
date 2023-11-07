@@ -46,11 +46,17 @@ function App() {
           flag: countryData.flag,
         };
 
-        console.log(country);
-
-        setSearchedCountry(country);
         weatherServices.getWeatherFromCityName(country.capital).then((res) => {
-          setWeatherInfo(res.data);
+          const weather = {
+            temp: res.data.main.temp,
+            wind: res.data.wind.speed,
+            icon: res.data.weather[0].icon,
+          };
+          setSearchedCountry(country);
+          setWeatherInfo(weather);
+          // console.log(weather);
+
+          // console.log(res.data);
         });
         return;
       });
@@ -94,7 +100,13 @@ function App() {
                 {searchedCountry.flag}
               </h1>
 
-              <h1>Weather in {searchedCountry.capital}</h1>
+              <h2>Weather in {searchedCountry.capital}</h2>
+              <p>Temperature {weatherInfo.temp} Celcius</p>
+              <img
+                src={`https://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
+                alt=""
+              />
+              <p>wind {weatherInfo.wind} m/s</p>
             </div>
           )}
         </div>
