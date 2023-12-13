@@ -3,7 +3,25 @@ const morgan = require("morgan");
 
 const app = express();
 
-app.use(morgan("tiny"));
+// app.use(morgan("tiny"));
+app.use(
+  morgan(function (tokens, req, res) {
+    tokensArray = [
+      tokens.method(req, res),
+      tokens.url(req, res),
+      tokens.status(req, res),
+      tokens.res(req, res, "content-length"),
+      "-",
+      tokens["response-time"](req, res),
+      "ms",
+    ];
+
+    if (tokens.method(req, res) === "POST") {
+      tokensArray.push(JSON.stringify(req.body));
+    }
+    return tokensArray.join(" ");
+  })
+);
 
 app.use(express.json());
 
@@ -61,7 +79,7 @@ app.get("/api/persons/:id", (request, response) => {
 
 app.delete("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
-  console.log(id);
+  // console.log(id);
 
   const phoneBook = phoneBooks.find((phoneBook) => phoneBook.id === id);
   if (phoneBook) {
