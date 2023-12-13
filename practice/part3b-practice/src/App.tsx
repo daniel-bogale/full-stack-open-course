@@ -14,14 +14,16 @@ const App = () => {
 
   return (
     <>
+      <h1> All Notes </h1>
       <ul>
         {allNotes.map(
           (note: NoteType, i) => {
             return <li key={i}>
               <p>{note.content}</p>
+              <p style={{ color: "gray" }}>{note.important ? "important" : "not - important"}</p>
             </li>
           })}
-      </ul>
+      </ul >
       <button >
         Click to add Note
       </button>
