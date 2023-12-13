@@ -1,5 +1,9 @@
 const express = require("express");
+const morgan = require("morgan");
+
 const app = express();
+
+app.use(morgan("tiny"));
 
 app.use(express.json());
 
@@ -37,7 +41,7 @@ app.get("/api/persons", (request, response) => {
 app.get("/info", (request, response) => {
   const currentTime = new Date();
   const phoneBookLength = phoneBooks.length;
-  console.log(phoneBookLength);
+  // console.log(phoneBookLength);
 
   response.send(
     `<p> Phonebook has info for ${phoneBookLength} people <br/> ${currentTime} </p>`
@@ -46,7 +50,7 @@ app.get("/info", (request, response) => {
 
 app.get("/api/persons/:id", (request, response) => {
   const id = Number(request.params.id);
-  console.log(id);
+  // console.log(id);
   const phoneBook = phoneBooks.find((phoneBook) => phoneBook.id === id);
   if (phoneBook) {
     response.json(phoneBook);
