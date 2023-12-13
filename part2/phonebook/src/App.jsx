@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 
-import axios from "axios";
-
 import phonebookServices from "./services/phonebook";
 
 import Filter from "./components/Filter";
