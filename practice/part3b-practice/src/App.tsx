@@ -5,11 +5,18 @@ import { useEffect, useState } from "react"
 const App = () => {
   const [allNotes, setAllNotes] = useState<NoteType[]>([])
   useEffect(() => {
-    return () => {
-      noteServices.getAll().then((response: []) => {
-        setAllNotes(response)
-      })
+    const fetchNotes = async () => {
+      try {
+        noteServices.getAll().then((response: []) => {
+          setAllNotes(response)
+        })
+      }
+      catch (error) {
+        console.log("****Error fetching notes:", error);
+
+      }
     }
+    fetchNotes()
   }, [])
 
   const toggleImportance = (id: number) => {
