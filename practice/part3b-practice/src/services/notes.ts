@@ -3,6 +3,7 @@ import axios from "axios";
 const baseUrl = "http://localhost:3001/api/notes";
 
 export interface NoteType {
+  id: number;
   content: string;
   important: boolean;
 }
