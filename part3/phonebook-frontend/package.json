@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:ui": "rm -rf dist && npm run build && cd ../phonebook-backend-copy && rm -rf dist && cp -r ../phonebook-frontend/dist ../phonebook-backend-copy && npm run copy:full"
   },
   "dependencies": {
     "axios": "^1.5.1",
