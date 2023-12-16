@@ -117,7 +117,7 @@ const App = () => {
       .getAll()
       .then((res) => {
         console.log(res);
-        if (res.statusText === "OK") {
+        if (+res.status === 200) {
           setPersons(res.data);
         }
       })
