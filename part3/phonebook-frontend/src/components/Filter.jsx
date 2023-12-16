@@ -5,4 +5,5 @@ const Filter = ({ onFilterChangeHandler }) => {
     </div>
   );
 };
+
 export default Filter;
