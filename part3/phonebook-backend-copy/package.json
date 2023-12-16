@@ -10,7 +10,7 @@
     "copy:json": "cd ../../../full-stack-open-part-3-backend && rm -rf package.json && cd ../full-stack-open-course/part3/phonebook-backend-copy && cp -r package.json ../../../full-stack-open-part-3-backend",
     "copy:readme": "cd ../../../full-stack-open-part-3-backend && rm -rf README.md && cd ../full-stack-open-course/part3/phonebook-backend-copy && cp -r README.md ../../../full-stack-open-part-3-backend",
     "copy:dist": "cd ../../../full-stack-open-part-3-backend && rm -rf dist && cd ../full-stack-open-course/part3/phonebook-backend-copy && cp -r dist ../../../full-stack-open-part-3-backend",
-    "install:json": "cd ../../../full-stack-open-part-3-backend && npm install",
+    "install:json": "cd ../../../full-stack-open-part-3-backend && yarn install",
     "copy:full": "npm run copy:index && npm run copy:json && npm run copy:readme && npm run copy:dist && npm run install:json ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
