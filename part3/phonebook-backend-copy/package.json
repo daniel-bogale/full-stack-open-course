@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "dev:debug": "nodemon --inspect index.js",
     "copy:index": "cd ../../../full-stack-open-part-3-backend && rm -rf index.js && cd ../full-stack-open-course/part3/phonebook-backend-copy && cp -r index.js ../../../full-stack-open-part-3-backend",
     "copy:json": "cd ../../../full-stack-open-part-3-backend && rm -rf package.json && cd ../full-stack-open-course/part3/phonebook-backend-copy && cp -r package.json ../../../full-stack-open-part-3-backend",
     "copy:readme": "cd ../../../full-stack-open-part-3-backend && rm -rf README.md && cd ../full-stack-open-course/part3/phonebook-backend-copy && cp -r README.md ../../../full-stack-open-part-3-backend",
