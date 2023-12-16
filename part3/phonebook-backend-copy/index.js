@@ -28,6 +28,8 @@ app.use(
 
 app.use(express.json());
 
+app.use(express.static("dist"));
+
 let phoneBooks = [
   {
     id: 1,
@@ -135,7 +137,7 @@ app.post("/api/persons", (request, response) => {
   response.json(phonebook);
 });
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
-  console.log("running");
+  console.log(`Server running on port ${PORT}`);
 });
