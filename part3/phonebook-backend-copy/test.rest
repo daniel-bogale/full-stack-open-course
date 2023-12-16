@@ -1,0 +1,22 @@
+GET http://localhost:3001
+
+###
+
+Get http://localhost:3001/info
+
+###
+
+GET http://localhost:3001/api/persons/2
+
+###
+
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+"name": "test1 Lovelace",
+"number": "39-440-5323523"
+}
+
+###
+DELETE http://localhost:3001/api/notes/3
