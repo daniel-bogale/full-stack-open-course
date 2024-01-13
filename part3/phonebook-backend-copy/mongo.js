@@ -20,7 +20,7 @@ const noteSchema = new mongoose.Schema({
 
 const Note = new mongoose.model("Note", noteSchema);
 
-// const note = new Note({ content: "HTML is easy", important: true });
+// const note = new Note({ content: "Node is easy", important: false });
 
 // note.save().then((result) => {
 //   console.log("note Saved!!");
@@ -28,7 +28,18 @@ const Note = new mongoose.model("Note", noteSchema);
 //   mongoose.connection.close();
 // });
 
-Note.find({}).then((result) => {
+//fetch all
+
+// Note.find({}).then((result) => {
+//   result.forEach((note) => {
+//     console.log(note);
+//   });
+//   mongoose.connection.close();
+// });
+
+//fetch with condition
+
+Note.find({ important: false }).then((result) => {
   result.forEach((note) => {
     console.log(note);
   });
