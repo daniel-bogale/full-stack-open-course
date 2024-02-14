@@ -1,47 +1,51 @@
 const mongoose = require("mongoose");
-if (process.argv.length < 3) {
+const argLength = process.argv.length;
+
+if (argLength < 3) {
   console.log("give password as argument");
+  return;
 }
 
 const password = process.argv[2];
 
-const url = `mongodb+srv://fullstackUserName:${password}@fullstackopenfirstclust.nr0heyo.mongodb.net/`;
+const url = `mongodb+srv://phonebook:${password}@phonebook.4srn2fv.mongodb.net/`;
 
 mongoose.set("strictQuery", false);
 mongoose.connect(url);
 
-const noteSchema = new mongoose.Schema({
-  content: {
+const contactSchema = new mongoose.Schema({
+  name: {
     type: String,
     unique: true,
   },
-  important: Boolean,
+  phoneNumber: String,
 });
 
-const Note = new mongoose.model("Note", noteSchema);
+const Contact = new mongoose.model("Contact", contactSchema);
 
-// const note = new Note({ content: "Node is easy", important: false });
-
-// note.save().then((result) => {
-//   console.log("note Saved!!");
-//   console.log(result);
-//   mongoose.connection.close();
-// });
-
-//fetch all
-
-// Note.find({}).then((result) => {
-//   result.forEach((note) => {
-//     console.log(note);
-//   });
-//   mongoose.connection.close();
-// });
-
-//fetch with condition
-
-Note.find({ important: false }).then((result) => {
-  result.forEach((note) => {
-    console.log(note);
+if (argLength === 3) {
+  Contact.find({}).then((result) => {
+    console.log("phonebook");
+    result.forEach((contact) => {
+      console.log(contact.name, contact.phoneNumber);
+    });
+    mongoose.connection.close();
   });
+} else if (argLength === 5) {
+  const contact = new Contact({
+    name: process.argv[3].toString(),
+    phoneNumber: process.argv[4].toString(),
+  });
+  contact.save().then((result) => {
+    console.log(
+      "added",
+      process.argv[3].toString(),
+      process.argv[4].toString(),
+      "to phonebook"
+    );
+    mongoose.connection.close();
+  });
+} else {
+  console.log("incorrect arg");
   mongoose.connection.close();
-});
+}

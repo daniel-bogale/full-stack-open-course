@@ -1,6 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const mongoose = require("mongoose");
 
 const app = express();
 
@@ -29,6 +30,25 @@ app.use(
 app.use(express.json());
 
 app.use(express.static("dist"));
+
+const password = process.argv[2];
+const url = `mongodb+srv://fullstackUserName:${password}@fullstackopenfirstclust.nr0heyo.mongodb.net/`;
+mongoose.set("strictQuery", false);
+mongoose.connect(url);
+
+const noteSchema = new mongoose.Schema({
+  content: String,
+  important: Boolean,
+});
+noteSchema.set("toJSON", {
+  transform: (document, returnedObject) => {
+    returnedObject.id = returnedObject._id.toString();
+    delete returnedObject._id;
+    delete returnedObject.__v;
+  },
+});
+
+const Note = mongoose.model("Note", noteSchema);
 
 let phoneBooks = [
   {
@@ -59,6 +79,12 @@ app.get("/", (request, response) => {
 
 app.get("/api/persons", (request, response) => {
   response.json(phoneBooks);
+});
+
+app.get("/api/notes", (request, response) => {
+  Note.find({}).then((notes) => {
+    response.json(notes);
+  });
 });
 
 app.get("/info", (request, response) => {

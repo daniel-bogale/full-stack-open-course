@@ -27,7 +27,6 @@
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
-    "@types/morgan": "^1.9.9",
-    "nodemon": "^3.0.2"
+    "@types/morgan": "^1.9.9"
   }
 }
