@@ -14,7 +14,7 @@ const PersonForm = ({
         number:{" "}
         <input onChange={onNumberChangeHandler} value={numberInputValue} />
       </div>
-      <div>
+      <div style={{ marginTop: "0.5rem" }}>
         <button type="submit" onClick={handleAddNumber}>
           add
         </button>

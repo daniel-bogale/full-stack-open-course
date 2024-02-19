@@ -21,7 +21,7 @@ const App = () => {
   const handleAddNumber = (e) => {
     e.preventDefault();
 
-    const newPerson = { name: newName, number: newNumber };
+    const newPerson = { name: newName, phoneNumber: newNumber };
 
     const existingPersonWithTheSameName = persons.find(
       (person) => person.name === newName
@@ -55,7 +55,9 @@ const App = () => {
       phonebookServices
         .create(newPerson)
         .then((response) => {
-          setPersons(persons.concat(response.data));
+          console.log(response.data);
+
+          setPersons(persons.concat(newPerson));
           setNewName("");
           setNewNumber("");
           setSuccessMessage(`${newPerson.name} is Added`);
@@ -132,7 +134,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Phonebook</h1>
+      <h2>Phonebook</h2>
       {successMessage && <p className="success">{successMessage}</p>}
       {errorMessage && <p className="error">{errorMessage}</p>}
       <Filter onFilterChangeHandler={onFilterChangeHandler} />
