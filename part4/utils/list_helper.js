@@ -27,4 +27,24 @@ const mostBlogs = (blogs) => {
   return authorScoreArr.sort((a, b) => b.blogs - a.blogs)[0];
 };
 
-module.exports = { dummy, totalLikes, favoriteBlog, mostBlogs };
+const mostLikes = (blogs) => {
+  if (blogs.length === 0) return {};
+  const authorLikes = {};
+  blogs.map(({ author, likes }) => {
+    if (authorLikes?.[author]) {
+      authorLikes[author] += likes;
+    } else {
+      authorLikes[author] = likes;
+    }
+  });
+  const authorScoreArr = [];
+  for (const [key, value] of Object.entries(authorLikes)) {
+    authorScoreArr.push({
+      author: key,
+      likes: value,
+    });
+  }
+  return authorScoreArr.sort((a, b) => b.likes - a.likes)[0];
+};
+
+module.exports = { dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes };

@@ -5,6 +5,7 @@ const {
   totalLikes,
   favoriteBlog,
   mostBlogs,
+  mostLikes,
 } = require("../utils/list_helper");
 
 test("dummy returns one", () => {
@@ -188,6 +189,75 @@ describe("top bloger", () => {
       { author: "Dijkstra", blogs: 3 },
     ];
     const result = mostBlogs(blogs);
+
+    assert.ok(
+      possibleBlogs.some(
+        (blog) => JSON.stringify(blog) === JSON.stringify(result)
+      )
+    );
+  });
+});
+describe("top Liked Author", () => {
+  test("of empty list is empty object", () => {
+    assert.deepStrictEqual(mostLikes([]), {});
+  });
+  test("of list that has only one blog is that one blog author", () => {
+    const theBlog = {
+      title: "Go To Statement Considered Harmful",
+      author: "Edsger W. Dijkstra",
+      url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+      likes: 5,
+    };
+    assert.deepStrictEqual(mostLikes([theBlog]), {
+      author: theBlog.author,
+      likes: 5,
+    });
+  });
+  test("of a bigger list computed correctly", () => {
+    const blogs = [
+      {
+        title: "Considered Harmful",
+        author: "Dijkstra",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 15,
+      },
+      {
+        title: "Harmful",
+        author: "Dijkstra",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 15,
+      },
+      {
+        title: " Considered Harmful",
+        author: "Dijkstra",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 4,
+      },
+
+      {
+        title: " Considered Harmful",
+        author: "Dijkstra2",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 15,
+      },
+      {
+        title: " Considered Harmful",
+        author: "Dijkstra2",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 15,
+      },
+      {
+        title: " Considered Harmful",
+        author: "Dijkstra2",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 4,
+      },
+    ];
+    const possibleBlogs = [
+      { author: "Dijkstra2", likes: 34 },
+      { author: "Dijkstra", likes: 34 },
+    ];
+    const result = mostLikes(blogs);
 
     assert.ok(
       possibleBlogs.some(
