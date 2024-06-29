@@ -1,6 +1,11 @@
 const { test, describe } = require("node:test");
 const assert = require("node:assert");
-const { dummy, totalLikes, favoriteBlog } = require("../utils/list_helper");
+const {
+  dummy,
+  totalLikes,
+  favoriteBlog,
+  mostBlogs,
+} = require("../utils/list_helper");
 
 test("dummy returns one", () => {
   const blogs = [];
@@ -96,14 +101,14 @@ describe("favorite book", () => {
         likes: 15,
       },
       {
-        title: " Harmful",
-        author: " W. Dijkstra",
+        title: "Harmful",
+        author: "Dijkstra",
         url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
         likes: 15,
       },
       {
         title: " Considered Harmful",
-        author: "E. Dijkstra",
+        author: "Dijkstra",
         url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
         likes: 4,
       },
@@ -116,6 +121,76 @@ describe("favorite book", () => {
 
     assert.ok(
       maxLikedBlogs.some(
+        (blog) => JSON.stringify(blog) === JSON.stringify(result)
+      )
+    );
+  });
+});
+
+describe("top bloger", () => {
+  test("of empty list is empty object", () => {
+    assert.deepStrictEqual(mostBlogs([]), {});
+  });
+  test("of list that has only one blog is that one blog author", () => {
+    const theBlog = {
+      title: "Go To Statement Considered Harmful",
+      author: "Edsger W. Dijkstra",
+      url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+      likes: 5,
+    };
+    assert.deepStrictEqual(mostBlogs([theBlog]), {
+      author: theBlog.author,
+      blogs: 1,
+    });
+  });
+  test("of a bigger list computed correctly", () => {
+    const blogs = [
+      {
+        title: "Considered Harmful",
+        author: "Dijkstra",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 15,
+      },
+      {
+        title: "Harmful",
+        author: "Dijkstra",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 15,
+      },
+      {
+        title: " Considered Harmful",
+        author: "Dijkstra",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 4,
+      },
+
+      {
+        title: " Considered Harmful",
+        author: "Dijkstra2",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 4,
+      },
+      {
+        title: " Considered Harmful",
+        author: "Dijkstra2",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 4,
+      },
+      {
+        title: " Considered Harmful",
+        author: "Dijkstra2",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 4,
+      },
+    ];
+    const possibleBlogs = [
+      { author: "Dijkstra2", blogs: 3 },
+      { author: "Dijkstra", blogs: 3 },
+    ];
+    const result = mostBlogs(blogs);
+
+    assert.ok(
+      possibleBlogs.some(
         (blog) => JSON.stringify(blog) === JSON.stringify(result)
       )
     );
