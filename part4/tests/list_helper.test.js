@@ -1,6 +1,6 @@
 const { test, describe } = require("node:test");
 const assert = require("node:assert");
-const { dummy, totalLikes } = require("../utils/list_helper");
+const { dummy, totalLikes, favoriteBlog } = require("../utils/list_helper");
 
 test("dummy returns one", () => {
   const blogs = [];
@@ -43,6 +43,81 @@ describe("total likes", () => {
         },
       ]),
       12
+    );
+  });
+});
+
+describe("favorite book", () => {
+  test("of empty list is empty object", () => {
+    assert.deepStrictEqual(favoriteBlog([]), {});
+  });
+  test("of list that has only one blog is that one blog", () => {
+    const theBlog = {
+      title: "Go To Statement Considered Harmful",
+      author: "Edsger W. Dijkstra",
+      url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+      likes: 5,
+    };
+    assert.deepStrictEqual(favoriteBlog([theBlog]), theBlog);
+  });
+  test("of a bigger list which has a unique favorite blog is the top liked blog", () => {
+    const theBlog = {
+      title: "Considered Harmful",
+      author: "W. Dijkstra",
+      url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+      likes: 15,
+    };
+    assert.deepStrictEqual(
+      favoriteBlog([
+        {
+          title: "Go To Statement Considered Harmful",
+          author: "Edsger W. Dijkstra",
+          url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+          likes: 6,
+        },
+        theBlog,
+        {
+          title: "Go To Statement Considered Harmful",
+          author: "Edsger W. Dijkstra",
+          url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+          likes: 6,
+        },
+      ]),
+      theBlog
+    );
+  });
+
+  test("of a bigger list is one among the most liked blogs", () => {
+    const blogs = [
+      {
+        title: "Considered Harmful",
+        author: "Ed Dijkstra",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 15,
+      },
+      {
+        title: " Harmful",
+        author: " W. Dijkstra",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 15,
+      },
+      {
+        title: " Considered Harmful",
+        author: "E. Dijkstra",
+        url: "https://homepages.cwi.nl/~storm/teaching/reader/Dijkstra68.pdf",
+        likes: 4,
+      },
+    ];
+
+    const maxLike = Math.max(...blogs.map((b) => b.likes));
+
+    const maxLikedBlogs = blogs.filter((blog) => blog.likes === maxLike);
+    const result = favoriteBlog(blogs);
+
+    assert.ok(
+      maxLikedBlogs.some(
+        (blog) => JSON.stringify(blog) === JSON.stringify(result)
+      )
     );
   });
 });

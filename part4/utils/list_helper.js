@@ -4,4 +4,7 @@ const dummy = (blogs) => {
 
 const totalLikes = (blogs) => blogs.reduce((tot, blog) => tot + blog.likes, 0);
 
-module.exports = { dummy, totalLikes };
+const favoriteBlog = (blogs) =>
+  blogs.sort((a, b) => b.likes - a.likes)[0] || {};
+
+module.exports = { dummy, totalLikes, favoriteBlog };
