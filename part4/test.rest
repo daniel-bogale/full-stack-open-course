@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "Full Stack Open 2021",
+  "author": "danielbogale",
+  "url": "https://fullstackopen.com/en/",
+  "likes": 10
+}
